@@ -12,12 +12,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 crouchScale, normalScale;
 
-    public bool isMoving, isCrouching, isRunning, isSliding;
+    public bool isMoving, isCrouching, isRunning;
     private float X, Y;
-    [Header("Headbob Variables")]
-    public float headbobSpeed = 10f;
-    public float bobbingAmount = 0.5f;
-    public CharacterController controller;
 
     private float timer;
     private Vector3 defaultPosition;
@@ -79,23 +75,5 @@ public class PlayerController : MonoBehaviour
         // Detects if the player is moving.
         // Useful if you want footstep sounds and or other features in your game.
         isMoving = cc.velocity.sqrMagnitude > 0.0f;
-        if (isMoving)
-        {
-            // Apply a sine function that moves the player camera up and down
-            timer += Time.deltaTime * headbobSpeed;
-            transform.localPosition = new Vector3(transform.localPosition.x, defaultPosition.y + Mathf.Sin(timer) * bobbingAmount, transform.localPosition.z);
-        }
-        else if (isRunning)
-        {
-            float v = headbobSpeed * 2;
-        }
-        else
-        {
-            
-            // if player is not moving, then move player camera back to default positions
-            isMoving = false;
-            timer = 0;
-            transform.localPosition = new Vector3(transform.localPosition.x, Mathf.Lerp(transform.localPosition.y, defaultPosition.y, Time.deltaTime * headbobSpeed), transform.localPosition.z);
-        }
     }
 }

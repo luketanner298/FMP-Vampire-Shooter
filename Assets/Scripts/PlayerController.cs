@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,13 +8,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Camera cam;
     [SerializeField] private float Sensitivity;
-
     [SerializeField] private float speed, walk, run, crouch;
 
     private Vector3 crouchScale, normalScale;
 
-    public bool isMoving, isCrouching, isRunning;
+    public bool isMoving, isCrouching, isRunning, isGrounded;
     private float X, Y;
+    public float jumpHeight = 15.0f;
+    public float fallSpeed = -10.0f;
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundmask;
+    public AudioClip jumpSound;
+    public AudioClip[] footstepSounds = new AudioClip[5];
+    public float footstepSoundDelay = 0.1f;
+    public AudioSource audioSource;
+    private Vector3 velocity;
+
+    private bool isfootStepPlaying = false;
+
 
     private float timer;
     private Vector3 defaultPosition;
@@ -45,6 +58,14 @@ public class PlayerController : MonoBehaviour
         #endregion
         transform.localRotation = Quaternion.Euler(Y, X, 0.0f);
 
+        // Calculates if player is on the ground using the groundCheck gameobject
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundmask);
+
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 forward = transform.forward * vertical;
@@ -65,6 +86,10 @@ public class PlayerController : MonoBehaviour
             speed = crouch;
             player.transform.localScale = crouchScale;
         }
+        else if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
         else
         {
             isRunning = false;
@@ -75,5 +100,20 @@ public class PlayerController : MonoBehaviour
         // Detects if the player is moving.
         // Useful if you want footstep sounds and or other features in your game.
         isMoving = cc.velocity.sqrMagnitude > 0.0f;
+
+        // Jumping mechanic
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * fallSpeed);
+
+            audioSource.clip = jumpSound;
+            audioSource.Play();
+
+        }
+
+        // If player is in the air, bring them down every frame
+        velocity.y += fallSpeed * Time.deltaTime;
+
     }
+
 }

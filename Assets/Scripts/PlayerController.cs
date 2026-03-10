@@ -12,12 +12,15 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 crouchScale, normalScale;
 
-    public bool isMoving, isCrouching, isRunning;
+    public bool isMoving, isCrouching, isRunning, isSliding;
     private float X, Y;
-    public Vector3 jump;
-    public float jumpForce = 2.0f;
-    public bool isGrounded;
-    Rigidbody rb;
+    [Header("Headbob Variables")]
+    public float headbobSpeed = 10f;
+    public float bobbingAmount = 0.5f;
+    public CharacterController controller;
+
+    private float timer;
+    private Vector3 defaultPosition;
 
     public void Start()
     {
@@ -28,12 +31,6 @@ public class PlayerController : MonoBehaviour
         cc.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        rb = GetComponent<Rigidbody>();
-        jump = new Vector3(0.0f, 2.0f, 0.0f);
-    }
-    void OnCollisionStay()
-    {
-        isGrounded = true;
     }
     private void Update()
     {
@@ -56,7 +53,6 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 forward = transform.forward * vertical;
         Vector3 right = transform.right * horizontal;
-        
 
             cc.SimpleMove(Vector3.Normalize(forward + right) * speed);
         // Determines if the speed = run or walk
@@ -73,12 +69,6 @@ public class PlayerController : MonoBehaviour
             speed = crouch;
             player.transform.localScale = crouchScale;
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-
-            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
-        }
         else
         {
             isRunning = false;
@@ -89,5 +79,23 @@ public class PlayerController : MonoBehaviour
         // Detects if the player is moving.
         // Useful if you want footstep sounds and or other features in your game.
         isMoving = cc.velocity.sqrMagnitude > 0.0f;
+        if (isMoving)
+        {
+            // Apply a sine function that moves the player camera up and down
+            timer += Time.deltaTime * headbobSpeed;
+            transform.localPosition = new Vector3(transform.localPosition.x, defaultPosition.y + Mathf.Sin(timer) * bobbingAmount, transform.localPosition.z);
+        }
+        else if (isRunning)
+        {
+            float v = headbobSpeed * 2;
+        }
+        else
+        {
+            
+            // if player is not moving, then move player camera back to default positions
+            isMoving = false;
+            timer = 0;
+            transform.localPosition = new Vector3(transform.localPosition.x, Mathf.Lerp(transform.localPosition.y, defaultPosition.y, Time.deltaTime * headbobSpeed), transform.localPosition.z);
+        }
     }
 }

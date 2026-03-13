@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     public void Start()
     {
         speed = walk;
-        crouchScale = new Vector3(1, .75f, 1);
+        crouchScale = new Vector3(1, .50f, 1);
         normalScale = new Vector3(1, 1, 1);
         cc = GetComponent<CharacterController>();
         cc.enabled = true;
@@ -86,10 +86,6 @@ public class PlayerController : MonoBehaviour
             speed = crouch;
             player.transform.localScale = crouchScale;
         }
-        else if (Input.GetKey("escape"))
-        {
-            Application.Quit();
-        }
         else
         {
             isRunning = false;
@@ -98,11 +94,11 @@ public class PlayerController : MonoBehaviour
             player.transform.localScale = normalScale;
         }
         // Detects if the player is moving.
-        // Useful if you want footstep sounds and or other features in your game.
+        // Useful for footstep sounds.
         isMoving = cc.velocity.sqrMagnitude > 0.0f;
 
         // Jumping mechanic
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetButtonDown("Space") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * fallSpeed);
 
@@ -111,7 +107,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        // If player is in the air, bring them down every frame
+        // If player is in the air they fall
         velocity.y += fallSpeed * Time.deltaTime;
 
     }

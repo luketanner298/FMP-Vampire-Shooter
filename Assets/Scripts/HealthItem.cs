@@ -13,7 +13,7 @@ public class HealthItem : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void OnCollisionEnter(Collision other)
+    public void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))
         {

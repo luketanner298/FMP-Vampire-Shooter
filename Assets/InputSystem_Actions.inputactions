@@ -8,9 +8,9 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "351f2ccd-1f9f-44bf-9bec-d62ac5c5f408",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -443,7 +443,7 @@
                 },
                 {
                     "name": "",
-                    "id": "d0c60c93-3ded-4872-b2a7-87729885c178",
+                    "id": "abc16dfd-a126-4113-a0ae-b6ad4164097d",
                     "path": "<Keyboard>/space",
                     "interactions": "Press",
                     "processors": "",

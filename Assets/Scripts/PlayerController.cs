@@ -20,12 +20,7 @@ public class PlayerController : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundmask;
     public AudioClip jumpSound;
-    public AudioClip[] footstepSounds = new AudioClip[5];
-    public float footstepSoundDelay = 0.1f;
-    public AudioSource audioSource;
     private Vector3 velocity;
-
-    private bool isfootStepPlaying = false;
 
 
     private float timer;
@@ -98,13 +93,9 @@ public class PlayerController : MonoBehaviour
         isMoving = cc.velocity.sqrMagnitude > 0.0f;
 
         // Jumping mechanic
-        if (Input.GetButtonDown("Space") && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * fallSpeed);
-
-            audioSource.clip = jumpSound;
-            audioSource.Play();
-
         }
 
         // If player is in the air they fall

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public CharacterController cc;
     [SerializeField] private GameObject player;
     [SerializeField] private Camera cam;
     [SerializeField] private float Sensitivity;
@@ -11,10 +10,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed, walk, run, crouch;
 
     private Vector3 crouchScale, normalScale;
-    public float jumpForce = 5f; // Jump force
+    public float jumpForce = 50000000f; // Jump force
     public LayerMask groundLayer; // Layer for ground detection
-    public float groundCheckDistance = 0.1f; // Distance for raycast to check for ground
+    public float groundCheckDistance = 1f; // Distance for raycast to check for ground
+    public float Gravity;
     public bool isMoving, isCrouching, isRunning, isGrounded;
+    public GameObject orientation;
 
     private float X, Y;
     private Rigidbody rb;
@@ -24,8 +25,6 @@ public class PlayerController : MonoBehaviour
         speed = walk;
         crouchScale = new Vector3(1, .50f, 1);
         normalScale = new Vector3(1, 1, 1);
-        cc = GetComponent<CharacterController>();
-        cc.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
@@ -49,12 +48,20 @@ public class PlayerController : MonoBehaviour
 
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 forward = transform.forward * vertical;
-        Vector3 right = transform.right * horizontal;
+        Vector3 forward = (orientation.transform.forward * vertical) ;
+        Vector3 right = orientation.transform.right * horizontal;
+        orientation.transform.position = gameObject.transform.position;
+        orientation.transform.eulerAngles = new Vector3(0, gameObject.transform.eulerAngles.y, 0);
         // Ground check using a raycast
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundLayer);
+        //isGrounded = Physics.Raycast(gameObject.transform.position + new Vector3(0,-1,0), Vector3.down, groundCheckDistance, groundLayer);
+        foreach (RaycastHit GroundRaycast in Physics.RaycastAll(gameObject.transform.position + new Vector3(0, -1, 0), Vector3.down, groundCheckDistance, groundLayer))
+        {
+            isGrounded = true;
+        }
+        //Debug.DrawRay(gameObject.transform.position + new Vector3(0, -1, 0), Vector3.down, Color.red);
 
-        cc.SimpleMove(Vector3.Normalize(forward + right) * speed);
+        rb.velocity =(Vector3.Normalize(forward + right) * speed) + new Vector3(0, rb.velocity.y, 0);
+        //Debug.Log("rigidbody velocity =" + rb.velocity);
         // Determines if the speed = run or walk
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -79,11 +86,12 @@ public class PlayerController : MonoBehaviour
         // Jump input
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            //Debug.Log("Character should jump");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
         // Detects if the player is moving.
         // Useful if you want footstep sounds and or other features in your game.
-        isMoving = cc.velocity.sqrMagnitude > 0.0f;
+        isMoving = rb.velocity.sqrMagnitude > 0.0f;
             // Visualize raycast for ground check in editor
     }
 }

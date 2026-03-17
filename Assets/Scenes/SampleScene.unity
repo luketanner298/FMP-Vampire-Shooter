@@ -1843,6 +1843,11 @@ MonoBehaviour:
   walk: 15
   run: 30
   crouch: 5
+  jumpForce: 5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  groundCheckDistance: 0.4
   isMoving: 1
   isCrouching: 1
   isRunning: 1

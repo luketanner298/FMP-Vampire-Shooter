@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,20 +11,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed, walk, run, crouch;
 
     private Vector3 crouchScale, normalScale;
-
-    public bool isMoving, isCrouching, isRunning;
+    public float jumpForce = 5f; // Jump force
+    public LayerMask groundLayer; // Layer for ground detection
+    public float groundCheckDistance = 0.1f; // Distance for raycast to check for ground
+    public bool isMoving, isCrouching, isRunning, isGrounded;
 
     private float X, Y;
-
+    private Rigidbody rb;
+    
     private void Start()
     {
         speed = walk;
-        crouchScale = new Vector3(1, .75f, 1);
+        crouchScale = new Vector3(1, .50f, 1);
         normalScale = new Vector3(1, 1, 1);
         cc = GetComponent<CharacterController>();
         cc.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        rb = GetComponent<Rigidbody>();
     }
     private void Update()
     {
@@ -42,10 +47,12 @@ public class PlayerController : MonoBehaviour
         #endregion
         transform.localRotation = Quaternion.Euler(Y, X, 0.0f);
 
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
         Vector3 forward = transform.forward * vertical;
         Vector3 right = transform.right * horizontal;
+        // Ground check using a raycast
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, groundLayer);
 
         cc.SimpleMove(Vector3.Normalize(forward + right) * speed);
         // Determines if the speed = run or walk
@@ -69,8 +76,14 @@ public class PlayerController : MonoBehaviour
             speed = walk;
             player.transform.localScale = normalScale;
         }
+        // Jump input
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
         // Detects if the player is moving.
         // Useful if you want footstep sounds and or other features in your game.
         isMoving = cc.velocity.sqrMagnitude > 0.0f;
+            // Visualize raycast for ground check in editor
     }
 }

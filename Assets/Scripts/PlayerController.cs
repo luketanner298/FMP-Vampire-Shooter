@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
         }
-        //Debug.DrawRay(gameObject.transform.position + new Vector3(0, -1, 0), Vector3.down, Color.red);
+       // Debug.DrawRay(gameObject.transform.position + new Vector3(0, -1, 0), Vector3.down, Color.red);
 
         rb.velocity =(Vector3.Normalize(forward + right) * speed) + new Vector3(0, rb.velocity.y, 0);
         //Debug.Log("rigidbody velocity =" + rb.velocity);

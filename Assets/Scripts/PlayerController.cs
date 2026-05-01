@@ -93,5 +93,9 @@ public class PlayerController : MonoBehaviour
         // Useful if you want footstep sounds and or other features in your game.
         isMoving = rb.velocity.sqrMagnitude > 0.0f;
             // Visualize raycast for ground check in editor
+            if(isMoving)
+        {
+            
+        }
     }
 }

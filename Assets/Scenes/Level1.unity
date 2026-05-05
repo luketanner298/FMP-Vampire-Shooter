@@ -5963,8 +5963,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1881590364}
   - component: {fileID: 1881590363}
+  - component: {fileID: 1881590365}
   m_Layer: 0
-  m_Name: Shotgun1
+  m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6037,6 +6038,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2013518137}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+--- !u!114 &1881590365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881590362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d528daa1f91d77240934bc522c0423b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 25
+  timeBetweenShooting: 1
+  spread: 50
+  range: 10
+  reloadTime: 5
+  timeBetweenShots: 2
+  magazineSize: 6
+  bulletsPerTap: 1
+  allowButtonHold: 0
+  fpsCam: {fileID: 0}
+  attackPoint: {fileID: 0}
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1896802377 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4356877828898064976, guid: 977012227b9e8c447995d5099e8a455b, type: 3}

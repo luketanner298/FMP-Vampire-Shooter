@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 
 public class GunScript : MonoBehaviour
@@ -21,7 +22,10 @@ public class GunScript : MonoBehaviour
     public LayerMask whatIsEnemy;
 
     //graphics
-    
+    public GameObject muzzleFlash;
+    public GameObject bulletHoleGraphic;
+    public TextMeshProUGUI text;
+
 
     private void Awake()
     {
@@ -32,6 +36,8 @@ public class GunScript : MonoBehaviour
     {
         MyInput();
 
+        //setText
+        text.SetText(bulletsLeft + "/" + magazineSize);
     }
 
     private void MyInput()
@@ -73,6 +79,10 @@ public class GunScript : MonoBehaviour
             if (rayHit.collider.CompareTag("Enemy"));
                
         }
+
+        //Graphics
+        Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 100, 0));
+        Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
 
         bulletsLeft--;
         bulletsShot--;

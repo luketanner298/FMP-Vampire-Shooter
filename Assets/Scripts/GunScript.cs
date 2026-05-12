@@ -38,6 +38,7 @@ public class GunScript : MonoBehaviour
 
         //setText
         text.SetText(bulletsLeft + "/" + magazineSize);
+
     }
 
     private void MyInput()
@@ -82,7 +83,9 @@ public class GunScript : MonoBehaviour
 
         //Graphics
         Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 100, 0));
-        Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+        Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);      
+
+        
 
         bulletsLeft--;
         bulletsShot--;

@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     public float Gravity;
     public bool isMoving, isCrouching, isRunning, isGrounded;
     public GameObject orientation;
+    public AudioSource FootstepsSound;
+    public AudioSource ShotGunShot;
 
     private float X, Y;
     private Rigidbody rb;
@@ -93,7 +95,20 @@ public class PlayerController : MonoBehaviour
         // Useful if you want footstep sounds and or other features in your game.
         isMoving = rb.velocity.sqrMagnitude > 0.0f;
             // Visualize raycast for ground check in editor
-            if(isMoving)
+            if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        {
+            FootstepsSound.enabled = true;
+        }
+        else
+        {
+            FootstepsSound.enabled = false;
+        }
+
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            ShotGunShot.enabled = true;
+        }
+        else
         {
             
         }

@@ -2020,6 +2020,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -3.149994
       objectReference: {fileID: 0}
+    - target: {fileID: -5363424281805771908, guid: 977012227b9e8c447995d5099e8a455b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9f36bcbaf7221b044a502b4bdc2b487b, type: 2}
     - target: {fileID: -2712175510624747214, guid: 977012227b9e8c447995d5099e8a455b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.27
@@ -2056,6 +2060,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -167.534
       objectReference: {fileID: 0}
+    - target: {fileID: -1602238644875344336, guid: 977012227b9e8c447995d5099e8a455b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9f36bcbaf7221b044a502b4bdc2b487b, type: 2}
     - target: {fileID: -1599826595754709761, guid: 977012227b9e8c447995d5099e8a455b, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -2196,6 +2204,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TownGraveMap
       objectReference: {fileID: 0}
+    - target: {fileID: 1738776581880846596, guid: 977012227b9e8c447995d5099e8a455b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9f36bcbaf7221b044a502b4bdc2b487b, type: 2}
     - target: {fileID: 5233112405309087440, guid: 977012227b9e8c447995d5099e8a455b, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -6291,8 +6303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15dc1e469a15c37469a9165debf01a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navAgent: {fileID: 0}
-  player: {fileID: 0}
+  navAgent: {fileID: 766814782}
+  player: {fileID: 1536512103}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -6305,7 +6317,7 @@ MonoBehaviour:
   sightRange: 15
   attackRange: 1.5
   damage: 5
-  animator: {fileID: 0}
+  animator: {fileID: 766814780}
   hitEffect: {fileID: 0}
 --- !u!195 &766814782
 NavMeshAgent:
@@ -9750,8 +9762,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15dc1e469a15c37469a9165debf01a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navAgent: {fileID: 0}
-  player: {fileID: 0}
+  navAgent: {fileID: 1148892189}
+  player: {fileID: 1536512103}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -9764,7 +9776,7 @@ MonoBehaviour:
   sightRange: 15
   attackRange: 1.5
   damage: 5
-  animator: {fileID: 0}
+  animator: {fileID: 1148892187}
   hitEffect: {fileID: 0}
 --- !u!195 &1148892189
 NavMeshAgent:
@@ -13916,8 +13928,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15dc1e469a15c37469a9165debf01a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navAgent: {fileID: 0}
-  player: {fileID: 0}
+  navAgent: {fileID: 1595471915}
+  player: {fileID: 1536512103}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -13930,7 +13942,7 @@ MonoBehaviour:
   sightRange: 15
   attackRange: 1.5
   damage: 5
-  animator: {fileID: 0}
+  animator: {fileID: 1595471913}
   hitEffect: {fileID: 0}
 --- !u!195 &1595471915
 NavMeshAgent:
@@ -17629,7 +17641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15dc1e469a15c37469a9165debf01a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navAgent: {fileID: 0}
+  navAgent: {fileID: 1906443713}
   player: {fileID: 0}
   groundLayer:
     serializedVersion: 2
@@ -17643,7 +17655,7 @@ MonoBehaviour:
   sightRange: 15
   attackRange: 1.5
   damage: 5
-  animator: {fileID: 0}
+  animator: {fileID: 1906443711}
   hitEffect: {fileID: 0}
 --- !u!195 &1906443713
 NavMeshAgent:
@@ -17730,7 +17742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navAgent: {fileID: 1914724589}
-  player: {fileID: 0}
+  player: {fileID: 1536512103}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
